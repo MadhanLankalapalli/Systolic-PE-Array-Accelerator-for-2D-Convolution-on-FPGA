@@ -341,7 +341,7 @@ The validated 4×4 PE array is deployed on a full 640×640 grayscale KITTI auton
   <b>Figure 6: BRAM-Based Tiled Processing Pipeline for 640×640 Image</b>
 </p>
 
-### Tiling and Pipeline
+### Dataflow
 
 | Parameter | Value |
 |-----------|-------|
@@ -350,6 +350,19 @@ The validated 4×4 PE array is deployed on a full 640×640 grayscale KITTI auton
 | Valid output per tile | 4 × 4 |
 | Output feature map | 638 × 638 |
 | Total tiles | 638 × 638 = **407,044** |
+
+The input image is first loaded from the testbench into on-chip memory.  
+During simulation, the testbench provides the full 640 × 640 grayscale image, which is then partitioned into overlapping 6 × 6 tiles.
+
+For each convolution position:
+
+1. The 6 × 6 tile corresponding to the current sliding window is written into BRAM.
+2. From BRAM, pixel data is streamed row-wise into four dedicated line buffers, matching the four rows of the 4 × 4 systolic PE array.
+3. The line buffers perform temporal alignment and staggered shifting of pixel operands to ensure correct spatial propagation across the array.
+4. Simultaneously, the 3 × 3 convolution kernel coefficients are supplied from weight buffers and broadcast into the PE array according to the output-stationary dataflow.
+5. Each Processing Element performs multiply-accumulate (MAC) operations, accumulating partial sums locally.
+6. After completion of the convolution window, a 4 × 4 output block is generated.
+7. The output block is written back to output BRAM and later stitched in raster-scan order to reconstruct the final 638 × 638 feature map.
 
 
 **Laplacian Edge Kernels:**
