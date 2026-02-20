@@ -183,18 +183,13 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 
 **Full Verilog Console Output:**
 ```
-Starting computation...
+<p align="center">
+  <img src="results/phase_1/console_output.png" width="700">
+</p>
 
-=== RESULTS ===
-PE00 =  121344  (474.00)      PE01 =  132864  (519.00)
-PE02 =  144384  (564.00)      PE03 =  155904  (609.00)
-PE10 =  190464  (744.00)      PE11 =  201984  (789.00)
-PE12 =  213504  (834.00)      PE13 =  225024  (879.00)
-PE20 =  259584 (1014.00)      PE21 =  271104 (1059.00)
-PE22 =  282624 (1104.00)      PE23 =  294144 (1149.00)
-PE30 =  328704 (1284.00)      PE31 =  340224 (1329.00)
-PE32 =  351744 (1374.00)      PE33 =  363264 (1419.00)
-```
+<p align="center">
+  <b>Fig. 3. CNN Processing Flow Diagram</b>
+</p>
 
 **The Verilog implementation is functionally identical to the Python golden reference model.**
 
