@@ -310,17 +310,31 @@ Remaps the 16-bit datapath to 12 integer bits and 4 fractional bits. Provides a 
 
 Expands the total datapath to 20 bits, gaining both high integer range (12 bits) and fine fractional precision (8 bits). The wider datapath requires wider interconnects and multiplexers at the BRAM interface, increasing logic utilization noticeably.
 
-**Resource Utilization:**
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Resource Utilization — Graph View</b><br><br>
+      <img src="results/phase_2/12.8/Utilization_graph.png" width="400">
+    </td>
+    <td align="center">
+      <b>Resource Utilization — Table View</b><br><br>
+      <img src="results/phase_2/12.8/Utilization_table.png" width="400">
+    </td>
+  </tr>
 
-| Resource | Utilization | % Used |
-|----------|-------------|--------|
-| LUT      | 2026        | **3.20%** |
-| FF       | 1188        | 0.94% |
-| BRAM     | 5.0         | 3.70% |
-| DSP      | 16          | 6.67% |
-| IO       | 81          | 38.57% |
+  <tr>
+    <td align="center">
+      <b>Timing Analysis — 100 MHz Constraint</b><br><br>
+      <img src="results/phase_2/12.8/Timing_report.png" width="500">
+    </td>
+    <td align="center">
+      <b>On-Chip Power Report</b><br><br>
+      <img src="results/phase_2/12.8/Power_report.png" width="400">
+    </td>
+  </tr>
+</table>
 
-> LUT usage tripled compared to 16-bit formats due to the 20-bit BRAM interface logic. DSP count remains 16 — the 20-bit multiplication still fits within a single DSP48E cascade.
+> LUT usage tripled compared to 16-bit formats due to the 20-bit BRAM interface logic. DSP count remains 16 as, the 20-bit multiplication still fits within a single DSP48E cascade.
 
 **Timing:** WNS = **+0.232 ns** — tightest margin of all formats, caused by wider carry propagation in the 20-bit accumulator. Still meets 100 MHz cleanly.  
 **Power:** Total = **0.132 W** — slight increase from higher bus switching activity.
