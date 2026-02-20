@@ -280,18 +280,29 @@ The Verilog PE architecture was parameterized to evaluate four fixed-point forma
 
 Remaps the 16-bit datapath to 12 integer bits and 4 fractional bits. Provides a significantly higher integer range (±2048 vs ±128) at the cost of coarser fractional resolution. Suitable for accumulations with large integer values where sub-unit precision is not critical.
 
-**Resource Utilization:**
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Resource Utilization — Q8.8</b><br><br>
+      <img src="results/phase_2/utilization_q8_8.png" width="400">
+    </td>
+    <td align="center">
+      <b>Resource Utilization — Q12.12</b><br><br>
+      <img src="results/phase_2/utilization_q12_12.png" width="400">
+    </td>
+  </tr>
 
-| Resource | Utilization | % Used |
-|----------|-------------|--------|
-| LUT      | 705         | 1.11% |
-| FF       | 956         | 0.75% |
-| BRAM     | 4.5         | 3.33% |
-| DSP      | 16          | 6.67% |
-| IO       | 69          | 32.86% |
-
-**Timing:** WNS = **+1.441 ns** — best slack of all four formats. The 16-bit datapath has the shallowest carry chain.  
-**Power:** Total = **0.119 W** — identical to Q8.8 (same physical datapath width, same switching energy).
+  <tr>
+    <td align="center">
+      <b>Timing Analysis — 100 MHz</b><br><br>
+      <img src="results/phase_2/Timing_report.png" width="400">
+    </td>
+    <td align="center">
+      <b>Power Analysis</b><br><br>
+      <img src="results/phase_2/Power_report.png" width="400">
+    </td>
+  </tr>
+</table>
 
 ---
 
