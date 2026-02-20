@@ -13,16 +13,16 @@
 </div>
 
 
+## Abstract
 
-## Project Overview
+This work presents the design, implementation, and evaluation of a parameterized 4×4 Output-Stationary (OS) systolic processing element (PE) array for hardware-accelerated 2D convolution on FPGA. The architecture is implemented in Verilog HDL and validated against a cycle-accurate Python fixed-point golden model.
 
-This project implements a parameterized **4×4 Systolic Processing Element (PE) Array** in Verilog HDL for hardware-accelerated 2D convolution on FPGA. The work is structured in three progressive phases:
+The system is progressively developed across three phases: 
+(1) functional validation in Q8.8 fixed-point format, 
+(2) multi-precision architectural characterization across Q8.8, Q12.4, Q12.8, and Q12.12 formats with timing, power, and resource analysis, and 
+(3) deployment for full-scale Sobel edge detection on a 640×640 KITTI dataset image using a BRAM-based tiled processing pipeline.
 
-| Phase | Description |
-|-------|-------------|
-| **Phase 1** | Design and verify a 4×4 Output Stationary systolic array for Q8.8 fixed-point arithmetic, validated cycle-by-cycle against a Python golden reference model |
-| **Phase 2** | Parameterize the architecture across four fixed-point precision formats (Q8.8, Q12.4, Q12.8, Q12.12) and analyze timing, resource, and power trade-offs |
-| **Phase 3** | Deploy the array for real-world **Sobel edge detection** on a 640×640 KITTI autonomous driving image using a tile-based BRAM pipeline |
+The study quantitatively demonstrates how fixed-point precision scaling affects LUT utilization, DSP cascade requirements, critical path delay, and dynamic power, providing insight into architectural trade-offs for edge AI accelerators.
 
 The final system processes an entire 640×640 image through the 4×4 PE array by tiling it into sequential 6×6 windows, loading each tile through BRAM into the systolic array, collecting the 4×4 convolution result, and reassembling the complete output feature map — demonstrating a full end-to-end FPGA-accelerated image processing pipeline.
 
@@ -36,10 +36,11 @@ The final system processes an entire 640×640 image through the 4×4 PE array by
 - Deployed accelerator on real 640×640 KITTI dataset
 
 ## Phase 1 — 4×4 Systolic PE Array Design (Q8.8)
+A 4×4 Output-Stationary systolic array was implemented as the baseline architecture. In the OS dataflow, each PE is statically mapped to one output pixel and accumulates partial sums locally, minimizing intermediate data movement and reducing off-chip bandwidth requirements.
+
+The design targets 3×3 convolution over a 6×6 input tile, producing a 4×4 output feature map per tile. All PEs operate concurrently under a staggered input schedule to ensure correct temporal alignment of pixel and weight operands.
 
 ### Architecture
-
-The array implements an **Output Stationary (OS)** dataflow. Each of the 16 PEs is permanently assigned to one output pixel of the feature map and accumulates its own partial sum locally until computation completes. This eliminates intermediate result movement, making OS ideal for convolution workloads.
 
 <p align="center">
   <img src="results/phase_1/PE_Array.png" width="500">
