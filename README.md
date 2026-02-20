@@ -140,7 +140,7 @@ The initial design exposed all 16 PE outputs (32 bits × 16 = **512 pins**) dire
 | LUT      | 547 (0.86%)        | 710 (1.12%)         | +163 LUTs |
 | DSP      | 16 (6.67%)         | 16 (6.67%)          | — |
 | BRAM     | 4 (2.96%)          | 4.5 (3.33%)         | +0.5 |
-| **IO**   | **569 (270.95%) ** | **69 (32.86%) **   | **−500 ports** |
+| **IO**   | 569 (270.95%)  | 69 (32.86%)  | −500 ports |
 
 ### Timing and Power Analysis (Q8.8)
 
