@@ -185,7 +185,7 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 
 **Full Verilog Console Output:**
 <p align="center">
-  <img src="results/phase_1/console%20output.png" width="800">
+  <img src="results/phase_1/console%20output.png" width="200">
 </p>
 
 <p align="center">
