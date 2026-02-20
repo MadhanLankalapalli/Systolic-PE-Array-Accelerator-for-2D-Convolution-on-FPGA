@@ -280,26 +280,28 @@ The Verilog PE architecture was parameterized to evaluate four fixed-point forma
 
 Remaps the 16-bit datapath to 12 integer bits and 4 fractional bits. Provides a significantly higher integer range (±2048 vs ±128) at the cost of coarser fractional resolution. Suitable for accumulations with large integer values where sub-unit precision is not critical.
 
+## Phase 2 — Q12.4 (16-bit) Implementation Reports
+
 <table align="center">
   <tr>
     <td align="center">
-      <b>Resource Utilization — Q8.8</b><br><br>
-      <img src="results/phase_2/utilization_q8_8.png" width="400">
+      <b>Resource Utilization — Graph View</b><br><br>
+      <img src="results/phase_2/12.4/Utilization_graph.png" width="400">
     </td>
     <td align="center">
-      <b>Resource Utilization — Q12.12</b><br><br>
-      <img src="results/phase_2/utilization_q12_12.png" width="400">
+      <b>Resource Utilization — Table View</b><br><br>
+      <img src="results/phase_2/12.4/Utilization_table.png" width="400">
     </td>
   </tr>
 
   <tr>
     <td align="center">
-      <b>Timing Analysis — 100 MHz</b><br><br>
-      <img src="results/phase_2/Timing_report.png" width="400">
+      <b>Timing Analysis — 100 MHz Constraint</b><br><br>
+      <img src="results/phase_2/12.4/Timing_report.png" width="400">
     </td>
     <td align="center">
-      <b>Power Analysis</b><br><br>
-      <img src="results/phase_2/Power_report.png" width="400">
+      <b>On-Chip Power Report</b><br><br>
+      <img src="results/phase_2/12.4/Power_report.png" width="400">
     </td>
   </tr>
 </table>
