@@ -242,27 +242,23 @@ I/O utilization reduced from **271% → 32.86%** with less than 0.3% additional 
 DRC waivers applied to downgrade "missing physical pin" errors to warnings for post-route analysis.
 
 **Design Timing Summary:**
-
-| Metric | Value |
-|--------|-------|
-| Worst Negative Slack (WNS) | **+0.899 ns ✅** |
-| Total Negative Slack (TNS) | 0.000 ns |
-| Failing Endpoints | 0 |
-| Total Endpoints | 1988 |
+<p align="center">
+  <img src="results/phase_1/Timing_report.png" width="500">
+</p>
+<p align="center">
+  <b>Fig. 3. Timing Analysis </b>
+</p>
 
 The positive WNS confirms the critical path (accumulator carry chain inside PEs) is well within the clock period, with headroom for higher frequency operation.
 
 **On-Chip Power Summary:**
 
-| Component | Power | Share |
-|-----------|-------|-------|
-| Total On-Chip Power | **0.119 W** | — |
-| Dynamic Power       | 0.028 W | 23% |
-| — I/O               | 0.013 W | 45% of dynamic |
-| — BRAM              | 0.011 W | 39% of dynamic |
-| — Logic + DSP       | ~0.002 W | 16% of dynamic |
-| Device Static       | 0.091 W | 77% |
-
+<p align="center">
+  <img src="results/phase_1/Power_report.png" width="500">
+</p>
+<p align="center">
+  <b>Fig. 4. Power Analysis </b>
+</p>
 The core computational logic (DSPs and LUTs) is extremely energy-efficient. Data movement (I/O and BRAM) accounts for the majority of active power.
 
 ---
