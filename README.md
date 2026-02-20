@@ -192,6 +192,15 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
   <b>Fig. 1. Console Output </b>
 </p>
 
+<p align="center">
+  <img src="results/phase_1/Timing_report.png" width="400">
+</p>
+
+<p align="center">
+  <b>Fig. 2. Timing Waveform </b>
+</p>
+
+
 **The Verilog implementation is functionally identical to the Python golden reference model.**
 
 ### I/O Bottleneck and Output BRAM Optimization
