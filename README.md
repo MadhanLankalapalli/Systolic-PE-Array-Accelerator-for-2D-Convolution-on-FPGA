@@ -41,19 +41,13 @@ The final system processes an entire 640×640 image through the 4×4 PE array by
 
 The array implements an **Output Stationary (OS)** dataflow. Each of the 16 PEs is permanently assigned to one output pixel of the feature map and accumulates its own partial sum locally until computation completes. This eliminates intermediate result movement, making OS ideal for convolution workloads.
 
-```
-                    W-Col0      W-Col1      W-Col2      W-Col3
-                  (No delay)  (Delay: 4)  (Delay: 8)  (Delay:12)
-                      │           │           │           │
-                      ▼           ▼           ▼           ▼
-Row0 (No delay) ──►[PE[0,0]]──►[PE[0,1]]──►[PE[0,2]]──►[PE[0,3]]
-                      │           │           │           │
-Row1 (Delay: 1) ──►[PE[1,0]]──►[PE[1,1]]──►[PE[1,2]]──►[PE[1,3]]
-                      │           │           │           │
-Row2 (Delay: 2) ──►[PE[2,0]]──►[PE[2,1]]──►[PE[2,2]]──►[PE[2,3]]
-                      │           │           │           │
-Row3 (Delay: 3) ──►[PE[3,0]]──►[PE[3,1]]──►[PE[3,2]]──►[PE[3,3]]
-```
+<p align="center">
+  <img src="results/phase_1/PE_Array.png" width="200">
+</p>
+
+<p align="center">
+  <b> PE Architecture </b>
+</p>
 
 **Core PE MAC operation:**
 ```
@@ -196,7 +190,7 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 </p>
 
 <p align="center">
-  <b>Fig. 1. Console Output </b>
+  <b> Console Output </b>
 </p>
 
 <p align="center">
@@ -204,7 +198,7 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 </p>
 
 <p align="center">
-  <b>Fig. 2. Timing Waveform </b>
+  <b> Timing Waveform </b>
 </p>
 
 
@@ -253,7 +247,7 @@ DRC waivers applied to downgrade "missing physical pin" errors to warnings for p
   <img src="results/phase_1/Timing_report.png" width="500">
 </p>
 <p align="center">
-  <b>Fig. 3. Timing Analysis </b>
+  <b> Timing Analysis </b>
 </p>
 
 The positive WNS confirms the critical path (accumulator carry chain inside PEs) is well within the clock period, with headroom for higher frequency operation.
@@ -264,7 +258,7 @@ The positive WNS confirms the critical path (accumulator carry chain inside PEs)
   <img src="results/phase_1/Power_report.png" width="500">
 </p>
 <p align="center">
-  <b>Fig. 4. Power Analysis </b>
+  <b> Power Analysis </b>
 </p>
 The core computational logic (DSPs and LUTs) is extremely energy-efficient. Data movement (I/O and BRAM) accounts for the majority of active power.
 
