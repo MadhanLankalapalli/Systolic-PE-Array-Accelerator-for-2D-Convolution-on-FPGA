@@ -42,7 +42,7 @@ The final system processes an entire 640×640 image through the 4×4 PE array by
 The array implements an **Output Stationary (OS)** dataflow. Each of the 16 PEs is permanently assigned to one output pixel of the feature map and accumulates its own partial sum locally until computation completes. This eliminates intermediate result movement, making OS ideal for convolution workloads.
 
 <p align="center">
-  <img src="results/phase_1/PE_Array.png" width="200">
+  <img src="results/phase_1/PE_Array.png" width="500">
 </p>
 
 <p align="center">
