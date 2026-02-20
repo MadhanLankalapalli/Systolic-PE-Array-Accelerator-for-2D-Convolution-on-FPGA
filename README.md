@@ -348,28 +348,35 @@ Maximizes fractional resolution at 2⁻¹² = 0.00024 for applications like grad
 
 Standard Xilinx DSP48E slices support multiplier inputs up to 18×25 bits. Since Q12.12 requires **24×24-bit multiplication**, the synthesis tool automatically **cascades two DSP48E slices per PE** to perform the wider operation — doubling DSP usage from 16 to **32 blocks**.
 
-**Resource Utilization:**
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Resource Utilization — Graph View</b><br><br>
+      <img src="results/phase_2/12.12/Before-timing_met/Utilization_graph.png" width="400">
+    </td>
+    <td align="center">
+      <b>Resource Utilization — Table View</b><br><br>
+      <img src="results/phase_2/12.12/Before-timing_met/Utilization_table.png" width="400">
+    </td>
+  </tr>
 
-| Resource | Utilization | % Used |
-|----------|-------------|--------|
-| LUT      | 1047        | 1.65% |
-| FF       | 1424        | 1.12% |
-| BRAM     | 5.0         | 3.70% |
-| DSP      | **32**      | **13.33%** |
-| IO       | 93          | 44.29% |
-
-**Timing Violation — Initial Single-Cycle Implementation:**
-
-| Metric | Value |
-|--------|-------|
-| Worst Negative Slack (WNS) | **−0.012 ns ❌** |
-| Failing Endpoints | 2 |
+  <tr>
+    <td align="center">
+      <b>Timing Analysis — 100 MHz Constraint</b><br><br>
+      <img src="results/phase_2/12.12/Before-timing_met/Timing_report.png" width="500">
+    </td>
+    <td align="center">
+      <b>On-Chip Power Report</b><br><br>
+      <img src="results/phase_2/12.12/Before-timing_met/Power_report.png" width="400">
+    </td>
+  </tr>
+</table>
 
 The 24-bit × 24-bit multiplication followed by 48-bit accumulation in a single clock cycle exceeded the 10 ns constraint by **12 picoseconds**. The cascaded DSP routing delay between the two DSP48E slices per PE is the root cause.
 
 **Power:** Total = **0.137 W** — highest of all formats, driven by doubled DSP toggle rate and wider buses.
 
----
+
 
 ### Q12.12 Optimized — 2-Stage Pipelined MAC
 
