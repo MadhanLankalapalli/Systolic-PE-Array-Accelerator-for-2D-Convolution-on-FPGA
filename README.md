@@ -453,7 +453,7 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
 The validated 4×4 PE array is deployed for practical **Sobel edge detection** on a 640×640 grayscale KITTI autonomous driving scene image. Since the PE array processes 6×6 input windows at a time, the full image is processed through a systematic **tile-based BRAM pipeline**.
 
 <p align="center">
-  <img src="results/phase_3/PE_4x4_block_diagram" width="500"><br>
+  <img src="results/phase_3/PE_4x4_block_diagram.png" width="500"><br>
   <b>Figure: PE Array Architecture </b>
 </p>
 
