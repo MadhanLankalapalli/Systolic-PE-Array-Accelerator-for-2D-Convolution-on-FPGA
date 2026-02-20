@@ -363,7 +363,7 @@ Standard Xilinx DSP48E slices support multiplier inputs up to 18×25 bits. Since
   <tr>
     <td align="center">
       <b>Timing Analysis — Before Optimization</b><br><br>
-      <img src="results/phase_2/12.12/Before_timing_met/Timing_report.png" width="400">
+      <img src="results/phase_2/12.12/Before_timing_met/Timing_report.png" width="500">
     </td>
     <td align="center">
       <b>On-Chip Power Report</b><br><br>
@@ -408,7 +408,7 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
   <tr>
     <td align="center">
       <b>Timing Analysis — After Optimization</b><br><br>
-      <img src="results/phase_2/12.12/After_timing_met/Timing_report.png" width="400">
+      <img src="results/phase_2/12.12/After_timing_met/Timing_report.png" width="500">
     </td>
     <td align="center">
       <b>On-Chip Power Report</b><br><br>
@@ -439,11 +439,11 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
 | **Dynamic Power** | 0.028 W | 0.028 W | 0.041 W | 0.066 W |
 
 **Key Insights:**
-- Q8.8 and Q12.4 are physically identical in hardware — same 16-bit datapath, differing only in fixed-point interpretation.
+- Q8.8 and Q12.4 are physically identical in hardware, have same 16-bit datapath, differing only in fixed-point interpretation.
 - Moving from 16-bit to 20-bit (Q12.8) triples LUT usage due to wider BRAM mux/demux logic.
 - Moving to 24-bit (Q12.12) doubles DSP blocks due to automatic DSP cascade for wide multiplication, and requires pipelining to meet timing.
 - All four formats operate at **100 MHz** with positive timing slack post-implementation.
-- Even the most resource-intensive format (Q12.12 pipelined) consumes only **0.157 W** — well-suited for edge AI inference devices.
+- Even the most resource-intensive format (Q12.12 pipelined) consumes only **0.157 W** which is well-suited for edge AI inference devices.
 
 
 ## Phase 3 — Sobel Edge Detection on 640×640 KITTI Image
@@ -452,19 +452,8 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
 
 The validated 4×4 PE array is deployed for practical **Sobel edge detection** on a 640×640 grayscale KITTI autonomous driving scene image. Since the PE array processes 6×6 input windows at a time, the full image is processed through a systematic **tile-based BRAM pipeline**.
 
-```
-  640×640            Tile           Pixel          4×4 PE          Output
-  Input Image ──►  Generator  ──►  BRAM   ──►   Systolic   ──►    BRAM
-  (Grayscale)      (6×6 tiles)   + Weight        Array           (4×4 result)
-                                  BRAM                                │
-                                                                      ▼
-                                                              Feature Map
-                                                              Assembler
-                                                                      │
-                                                                      ▼
-                                                              Full Edge Map
-                                                              (638×638 output)
-```
+
+
 
 ### Tiling Strategy
 
@@ -533,113 +522,7 @@ The systolic array was applied to the KITTI image with three precision formats. 
 
 ---
 
-## Repository Structure
 
-```
-systolic-pe-array/
-│
-├── src/
-│   ├── PE.v                        # Processing Element — Q8.8 single-cycle MAC
-│   ├── PE_pipelined.v              # PE — 2-stage pipelined MAC for Q12.12
-│   ├── PE_Array_4x4.v              # 4×4 PE grid with staggered data routing
-│   ├── Systolic_Conv_Top.v         # Top-level wrapper with output BRAM write-back
-│   ├── BRAM_Buffer.v               # Input pixel and kernel weight BRAM
-│   ├── Line_Buffer.v               # Shift-register line buffer for pixel streaming
-│   └── Weight_Buffer.v             # Kernel weight buffer
-│
-├── testbench/
-│   └── tb_systolic_conv.v          # Full testbench with staggered input stimuli
-│
-├── python_model/
-│   └── systolic_q8.8_reference.py  # Q8.8 golden reference with cycle trace and verification
-│
-├── kitti_pipeline/
-│   ├── tile_generator.py           # 640×640 → 6×6 tile extraction
-│   ├── sobel_driver.py             # Drives systolic array tile-by-tile
-│   └── result_assembler.py         # Stitches 4×4 tile outputs → full 638×638 edge map
-│
-├── constraints/
-│   └── timing.xdc                  # 100 MHz clock constraint + DRC waivers
-│
-├── results/
-│   ├── kitti_sample_img.png        # Original 640×640 KITTI input image
-│   ├── verilog_output_q8.8s.png    # Sobel edge output — Q8.8
-│   ├── verilog_output_q12.12.png   # Sobel edge output — Q12.12
-│   └── verilog_output_q16.16.png   # Sobel edge output — Q16.16
-│
-└── README.md
-```
-
----
-
-## How to Simulate
-
-### 1. Python Golden Reference
-
-Verifies the Q8.8 systolic logic before any hardware simulation:
-
-```bash
-cd python_model/
-python systolic_q8.8_reference.py
-```
-
-Expected output:
-```
-✓ MATCH: Q8.8 systolic output matches floating-point convolution!
-Maximum error: 0.0000
-```
-
-### 2. Verilog Simulation in Vivado
-
-1. Open Vivado and create a new RTL project
-2. Add all files from `src/` as Design Sources
-3. Add `testbench/tb_systolic_conv.v` as Simulation Source
-4. Set `tb_systolic_conv` as the top simulation module
-5. Run **Behavioral Simulation**
-6. Observe waveforms for: `clk`, `rst_n`, `start`, `done`, `out00[31:0]` ... `out33[31:0]`
-
-### 3. Verilog Simulation with Icarus Verilog (Open Source)
-
-```bash
-# Compile
-iverilog -o sim_out \
-  testbench/tb_systolic_conv.v \
-  src/PE.v \
-  src/PE_Array_4x4.v \
-  src/Systolic_Conv_Top.v \
-  src/BRAM_Buffer.v \
-  src/Line_Buffer.v
-
-# Run
-vvp sim_out
-
-# View waveform (optional)
-gtkwave dump.vcd
-```
-
-### 4. Synthesize for FPGA (Vivado)
-
-1. Add `constraints/timing.xdc` to the project
-2. Run: **Synthesis → Implementation → Generate Bitstream**
-3. Check **Design Timing Summary**: WNS must be positive
-4. Check **Report Power** for on-chip power breakdown
-
-### 5. Run KITTI Image Pipeline
-
-```bash
-cd kitti_pipeline/
-
-# Extract 6×6 tiles from 640×640 image
-python tile_generator.py --input ../results/kitti_sample_img.png --output tiles/
-
-# Drive systolic array simulation over all tiles
-python sobel_driver.py --tiles tiles/ --format q8.8 --output output/
-
-# Assemble 4×4 outputs into full edge map
-python result_assembler.py --results output/ --save ../results/final_edge_map.png
-```
-
----
 
 ## Dependencies
 
@@ -649,30 +532,6 @@ python result_assembler.py --results output/ --save ../results/final_edge_map.pn
 | Python | 3.8+ | Golden reference model and tile pipeline |
 | NumPy | Any | Matrix operations in reference model |
 | Pillow (PIL) | Any | Image loading/saving for KITTI pipeline |
-| Icarus Verilog | 11.0+ | Open-source RTL simulation (optional) |
-| GTKWave | Any | Waveform viewer for `.vcd` files (optional) |
-
-**Install Python dependencies:**
-```bash
-pip install numpy pillow
-```
-
----
-
-## Results at a Glance
-
-| Milestone | Status |
-|-----------|--------|
-| Python Q8.8 model matches NumPy floating-point reference | ✅ Zero error |
-| Verilog Q8.8 simulation matches Python cycle-by-cycle model | ✅ Exact match |
-| I/O bottleneck resolved via Output BRAM (271% → 32.86%) | ✅ |
-| Q8.8 meets 100 MHz timing (WNS +0.899 ns) | ✅ |
-| Q12.4 meets 100 MHz timing (WNS +1.441 ns) | ✅ |
-| Q12.8 meets 100 MHz timing (WNS +0.232 ns) | ✅ |
-| Q12.12 timing violation fixed with 2-stage pipeline (−0.012 → +1.011 ns) | ✅ |
-| Sobel edge detection on 640×640 KITTI image across all formats | ✅ |
-
----
 
 <div align="center">
 
