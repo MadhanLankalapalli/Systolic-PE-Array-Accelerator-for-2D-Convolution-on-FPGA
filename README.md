@@ -528,7 +528,7 @@ The systolic array was applied to the KITTI image with three precision formats. 
 
 
 ## Contributors
-- **[Madhan Lankalapalli](https://github.com/your-username)** 
+- **[Madhan Lankalapalli](https://github.com/MadhanLankalapalli)** 
 - **[Prasanth Behara](https://github.com/your-username)** 
 - **[Rupa Lakshmi Koram](https://github.com/your-username)** 
 
