@@ -377,7 +377,6 @@ Standard Xilinx DSP48E slices support multiplier inputs up to 18×25 bits. Since
 **Power:** Total = **0.137 W** — highest of all formats, driven by doubled DSP toggle rate and wider buses.
 
 
-
 ### Q12.12 Optimized — 2-Stage Pipelined MAC
 
 To resolve the timing violation, the PE was modified from a **single-cycle combinational MAC** to a **2-stage pipelined MAC**.
@@ -391,46 +390,39 @@ Stage 1 (Cycle N):   mult_result = pixel_in × weight_in
 Stage 2 (Cycle N+1): acc = acc + mult_result
 ```
 
-```verilog
-// Stage 1 — Multiplication register
-always @(posedge clk) begin
-    mult_stage_reg <= pixel_in * weight_in;
-    pixel_pipe     <= pixel_in;
-    weight_pipe    <= weight_in;
-end
-
-// Stage 2 — Accumulation
-always @(posedge clk or posedge rst) begin
-    if (rst) acc <= 0;
-    else     acc <= acc + mult_stage_reg;
-end
-```
-
 This adds **1 cycle of latency** to the final result — negligible in a systolic pipeline where data arrives staggered across many cycles anyway.
 
-**Optimized Resource Utilization:**
 
-| Resource | Before Pipeline | After Pipeline | Change |
-|----------|----------------|----------------|--------|
-| LUT      | 1047 (1.65%)   | 990 (1.56%)    | ↓ slight decrease |
-| FF       | 1424 (1.12%)   | 1519 (1.20%)   | ↑ +95 (pipeline regs) |
-| DSP      | 32 (13.33%)    | 32 (13.33%)    | — unchanged |
-| IO       | 93 (44.29%)    | 93 (44.29%)    | — unchanged |
+<table align="center">
+  <tr>
+    <td align="center">
+      <b>Resource Utilization — Graph View</b><br><br>
+      <img src="results/phase_2/12.12/After_timing_met/Utilization_graph.png" width="400">
+    </td>
+    <td align="center">
+      <b>Resource Utilization — Table View</b><br><br>
+      <img src="results/phase_2/12.12/After_timing_met/Utilization_Table.png" width="400">
+    </td>
+  </tr>
 
-> LUT count decreased because the synthesis tool packs separated logic more efficiently when the multiply and accumulate stages are decoupled.
+  <tr>
+    <td align="center">
+      <b>Timing Analysis — Before Optimization</b><br><br>
+      <img src="results/phase_2/12.12/After_timing_met/Timing_report.png" width="500">
+    </td>
+    <td align="center">
+      <b>On-Chip Power Report</b><br><br>
+      <img src="results/phase_2/12.12/After_timing_met/power_report.png" width="400">
+    </td>
+  </tr>
+</table>
 
-**Timing — Resolved:**
+**Resource Utilization:** LUT count decreased because the synthesis tool packs separated logic more efficiently when the multiply and accumulate stages are decoupled.
 
-| Metric | Before Pipeline | After Pipeline |
-|--------|----------------|----------------|
-| WNS    | −0.012 ns ❌   | **+1.011 ns ✅** |
-| Failing Endpoints | 2 | **0** |
-
-The +1.011 ns slack is comparable to the Q8.8 baseline (+0.899 ns), confirming the pipeline fully resolves the critical path.
+**Timing:** The +1.011 ns slack is comparable to the Q8.8 baseline (+0.899 ns), confirming the pipeline fully resolves the critical path.
 
 **Power:** Total = **0.157 W** — small increase from additional pipeline register switching.
 
----
 
 ### Consolidated Results Summary
 
