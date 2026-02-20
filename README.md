@@ -401,18 +401,18 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
     </td>
     <td align="center">
       <b>Resource Utilization — Table View</b><br><br>
-      <img src="results/phase_2/12.12/After_timing_met/Utilization_Table.png" width="400">
+      <img src="results/phase_2/12.12/After_timing_met/Utilization_table.png" width="400">
     </td>
   </tr>
 
   <tr>
     <td align="center">
-      <b>Timing Analysis — Before Optimization</b><br><br>
-      <img src="results/phase_2/12.12/After_timing_met/Timing_report.png" width="500">
+      <b>Timing Analysis — After Optimization</b><br><br>
+      <img src="results/phase_2/12.12/After_timing_met/Timing_report.png" width="400">
     </td>
     <td align="center">
       <b>On-Chip Power Report</b><br><br>
-      <img src="results/phase_2/12.12/After_timing_met/power_report.png" width="400">
+      <img src="results/phase_2/12.12/After_timing_met/Power_report.png" width="400">
     </td>
   </tr>
 </table>
@@ -434,7 +434,7 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
 | **DSP Blocks**    | 16 (6.67%) | 16 (6.67%) | 16 (6.67%) | 32 (13.33%) |
 | **BRAM**          | 4.5 (3.33%) | 4.5 (3.33%) | 5.0 (3.70%) | 5.0 (3.70%) |
 | **IO Ports**      | 69 (32.86%) | 69 (32.86%) | 81 (38.57%) | 93 (44.29%) |
-| **WNS**           | +0.899 ns ✅ | +1.441 ns ✅ | +0.232 ns ✅ | +1.011 ns ✅ |
+| **WNS**           | +0.899 ns | +1.441 ns | +0.232 ns | +1.011 ns |
 | **Total Power**   | 0.119 W | 0.119 W | 0.132 W | 0.157 W |
 | **Dynamic Power** | 0.028 W | 0.028 W | 0.041 W | 0.066 W |
 
@@ -445,7 +445,6 @@ This adds **1 cycle of latency** to the final result — negligible in a systoli
 - All four formats operate at **100 MHz** with positive timing slack post-implementation.
 - Even the most resource-intensive format (Q12.12 pipelined) consumes only **0.157 W** — well-suited for edge AI inference devices.
 
----
 
 ## Phase 3 — Sobel Edge Detection on 640×640 KITTI Image
 
