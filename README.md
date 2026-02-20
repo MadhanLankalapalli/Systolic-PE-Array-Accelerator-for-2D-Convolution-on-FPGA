@@ -352,27 +352,27 @@ Standard Xilinx DSP48E slices support multiplier inputs up to 18×25 bits. Since
   <tr>
     <td align="center">
       <b>Resource Utilization — Graph View</b><br><br>
-      <img src="results/phase_2/12.12/Before-timing_met/Utilization_graph.png" width="400">
+      <img src="results/phase_2/12.12/Before_timing_met/Utilization_graph.png" width="400">
     </td>
     <td align="center">
       <b>Resource Utilization — Table View</b><br><br>
-      <img src="results/phase_2/12.12/Before-timing_met/Utilization_table.png" width="400">
+      <img src="results/phase_2/12.12/Before_timing_met/Utilization_Table.png" width="400">
     </td>
   </tr>
 
   <tr>
     <td align="center">
-      <b>Timing Analysis — 100 MHz Constraint</b><br><br>
-      <img src="results/phase_2/12.12/Before-timing_met/Timing_report.png" width="500">
+      <b>Timing Analysis — Before Optimization</b><br><br>
+      <img src="results/phase_2/12.12/Before_timing_met/Timing_report.png" width="400">
     </td>
     <td align="center">
       <b>On-Chip Power Report</b><br><br>
-      <img src="results/phase_2/12.12/Before-timing_met/Power_report.png" width="400">
+      <img src="results/phase_2/12.12/Before_timing_met/power_report.png" width="400">
     </td>
   </tr>
 </table>
 
-The 24-bit × 24-bit multiplication followed by 48-bit accumulation in a single clock cycle exceeded the 10 ns constraint by **12 picoseconds**. The cascaded DSP routing delay between the two DSP48E slices per PE is the root cause.
+**Timing:** The 24-bit × 24-bit multiplication followed by 48-bit accumulation in a single clock cycle exceeded the 10 ns constraint by **12 picoseconds**. The cascaded DSP routing delay between the two DSP48E slices per PE is the root cause.
 
 **Power:** Total = **0.137 W** — highest of all formats, driven by doubled DSP toggle rate and wider buses.
 
