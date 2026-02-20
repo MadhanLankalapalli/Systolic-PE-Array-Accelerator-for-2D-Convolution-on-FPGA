@@ -502,15 +502,13 @@ The Sobel-X and Sobel-Y passes are run as two separate sweeps through the full i
 
 The systolic array was applied to the KITTI image with three precision formats. The results show a clear and progressive improvement in edge detection quality as fractional precision increases.
 
-| Original KITTI Image | Q8.8 Output |
-|:-------------------:|:-----------:|
-| ![KITTI](results/kitti_sample_img.png) | ![Q8.8](results/verilog_output_q8.8s.png) |
-| *640×640 street scene* | *Coarse dominant edges only* |
+<p align="center">
+  <img src="results/phase_3/Verilog_output_comparision_page-0001" width="200">
+</p>
 
-| Q12.12 Output | Q16.16 Output |
-|:-------------:|:-------------:|
-| ![Q12.12](results/verilog_output_q12.12.png) | ![Q16.16](results/verilog_output_q16.16.png) |
-| *Fine structural detail resolved* | *Maximum edge fidelity* |
+<p align="center">
+  <b> Verilog Outputs  </b>
+</p>
 
 **Precision vs. Edge Quality Observations:**
 
@@ -519,8 +517,6 @@ The systolic array was applied to the KITTI image with three precision formats. 
 | Q8.8   | Low — dominant edges only | Limited fractional bits cause small gradient values to be quantized to zero. Road boundaries and building outlines are captured; fine textures and foliage are lost. |
 | Q12.12 | High — fine structural edges | Improved fractional precision recovers subtle gradients. Window frames, vegetation edges, and pavement markings become visible. |
 | Q16.16 | Highest — all structural and textural detail | All edges preserved with maximum fidelity. Best result for downstream perception tasks like lane detection or object boundary extraction. |
-
----
 
 
 
