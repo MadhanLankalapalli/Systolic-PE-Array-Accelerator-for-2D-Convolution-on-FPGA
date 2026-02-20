@@ -503,11 +503,8 @@ The Sobel-X and Sobel-Y passes are run as two separate sweeps through the full i
 The systolic array was applied to the KITTI image with three precision formats. The results show a clear and progressive improvement in edge detection quality as fractional precision increases.
 
 <p align="center">
-  <img src="results/phase_3/Verilog_output_comparision_page-0001" width="200">
-</p>
-
-<p align="center">
-  <b> Verilog Outputs  </b>
+  <img src="results/phase_3/Verilog_output_comparision_page-0001.jpg" width="500"><br>
+  <b>Figure: Verilog Outputs for different Dataformats </b>
 </p>
 
 **Precision vs. Edge Quality Observations:**
