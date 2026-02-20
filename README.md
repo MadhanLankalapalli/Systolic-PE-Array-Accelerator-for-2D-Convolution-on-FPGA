@@ -177,9 +177,9 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 
 | Signal | Raw Q8.8 Value | Decoded (÷ 256) | Python Reference | Status |
 |--------|----------------|-----------------|-----------------|--------|
-| `out00` | 121344 | **474.00** | 474.00 | ✅ Exact |
-| `out20` | 259584 | **1013.99** | 1014.00 | ✅ Quantization only |
-| `out33` | 363264 | **1419.00** | 1419.00 | ✅ Exact |
+| `out00` | 121344 | **474.00** | 474.00 | Exact |
+| `out20` | 259584 | **1013.99** | 1014.00 | Quantization only |
+| `out33` | 363264 | **1419.00** | 1419.00 | Exact |
 
 **Full Verilog Console Output:**
 ```
