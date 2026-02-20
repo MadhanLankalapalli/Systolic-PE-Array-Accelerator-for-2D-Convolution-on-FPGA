@@ -12,36 +12,7 @@
 
 </div>
 
----
 
-## Table of Contents
-
-- [Project Overview](#project-overview)
-- [Phase 1 — 4×4 Systolic PE Array Design (Q8.8)](#phase-1--44-systolic-pe-array-design-q88)
-  - [Architecture](#architecture)
-  - [Data Flow and Input Staggering](#data-flow-and-input-staggering)
-  - [Python Golden Reference Model](#python-golden-reference-model)
-  - [Verilog RTL Implementation](#verilog-rtl-implementation)
-  - [Simulation and Verification](#simulation-and-verification)
-  - [I/O Bottleneck and Output BRAM Optimization](#io-bottleneck-and-output-bram-optimization)
-  - [Timing and Power Analysis](#timing-and-power-analysis)
-- [Phase 2 — Multi-Precision Architecture Analysis](#phase-2--multi-precision-architecture-analysis)
-  - [Q12.4 — High Dynamic Range (16-bit)](#q124--high-dynamic-range-16-bit)
-  - [Q12.8 — Extended Precision (20-bit)](#q128--extended-precision-20-bit)
-  - [Q12.12 — Maximum Precision (24-bit)](#q1212--maximum-precision-24-bit)
-  - [Q12.12 Optimized — 2-Stage Pipelined MAC](#q1212-optimized--2-stage-pipelined-mac)
-  - [Consolidated Results Summary](#consolidated-results-summary)
-- [Phase 3 — Sobel Edge Detection on 640×640 KITTI Image](#phase-3--sobel-edge-detection-on-640640-kitti-image)
-  - [System Architecture](#system-architecture)
-  - [Tiling Strategy](#tiling-strategy)
-  - [BRAM-Based Data Pipeline](#bram-based-data-pipeline)
-  - [Output Results Across Precision Formats](#output-results-across-precision-formats)
-- [Repository Structure](#repository-structure)
-- [How to Simulate](#how-to-simulate)
-- [Dependencies](#dependencies)
-- [Results at a Glance](#results-at-a-glance)
-
----
 
 ## Project Overview
 
@@ -208,24 +179,18 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 
 | Signal | Raw Q8.8 Value | Decoded (÷ 256) | Python Reference | Status |
 |--------|----------------|-----------------|-----------------|--------|
-| `out00` | 121344 | **474.00** | 474.00 | ✅ Exact |
-| `out20` | 259584 | **1013.99** | 1014.00 | ✅ Quantization only |
-| `out33` | 363264 | **1419.00** | 1419.00 | ✅ Exact |
+| `out00` | 121344 | **474.00** | 474.00 | Exact |
+| `out20` | 259584 | **1013.99** | 1014.00 | Quantization only |
+| `out33` | 363264 | **1419.00** | 1419.00 | Exact |
 
 **Full Verilog Console Output:**
-```
-Starting computation...
+<p align="center">
+  <img src="results/phase_1/console_output.png" width="700">
+</p>
 
-=== RESULTS ===
-PE00 =  121344  (474.00)      PE01 =  132864  (519.00)
-PE02 =  144384  (564.00)      PE03 =  155904  (609.00)
-PE10 =  190464  (744.00)      PE11 =  201984  (789.00)
-PE12 =  213504  (834.00)      PE13 =  225024  (879.00)
-PE20 =  259584 (1014.00)      PE21 =  271104 (1059.00)
-PE22 =  282624 (1104.00)      PE23 =  294144 (1149.00)
-PE30 =  328704 (1284.00)      PE31 =  340224 (1329.00)
-PE32 =  351744 (1374.00)      PE33 =  363264 (1419.00)
-```
+<p align="center">
+  <b>Fig. 1. Console Output </b>
+</p>
 
 **The Verilog implementation is functionally identical to the Python golden reference model.**
 
