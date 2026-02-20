@@ -26,7 +26,14 @@ This project implements a parameterized **4×4 Systolic Processing Element (PE) 
 
 The final system processes an entire 640×640 image through the 4×4 PE array by tiling it into sequential 6×6 windows, loading each tile through BRAM into the systolic array, collecting the 4×4 convolution result, and reassembling the complete output feature map — demonstrating a full end-to-end FPGA-accelerated image processing pipeline.
 
----
+## Key Contributions
+
+- Designed a parameterized 4×4 Output-Stationary systolic array for FPGA
+- Developed a cycle-accurate Python fixed-point golden model
+- Implemented multi-precision hardware evaluation (16-bit → 24-bit)
+- Identified and resolved DSP cascade timing violation via 2-stage pipelining
+- Achieved full 100 MHz timing closure across all formats
+- Deployed accelerator on real 640×640 KITTI dataset
 
 ## Phase 1 — 4×4 Systolic PE Array Design (Q8.8)
 
