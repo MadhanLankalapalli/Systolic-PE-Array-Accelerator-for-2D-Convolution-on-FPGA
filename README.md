@@ -353,8 +353,7 @@ The validated 4×4 PE array is deployed on a full 640×640 grayscale KITTI auton
 
 
 **Laplacian Edge Kernels:**
-```
-Sobel-X:           
+```           
 -1   -1  -1            
 -1    8   -1            
 -1   -1   -1           
