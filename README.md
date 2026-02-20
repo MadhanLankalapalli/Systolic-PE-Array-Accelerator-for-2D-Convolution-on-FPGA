@@ -12,37 +12,6 @@
 
 </div>
 
----
-
-## Table of Contents
-
-- [Project Overview](#project-overview)
-- [Phase 1 — 4×4 Systolic PE Array Design (Q8.8)](#phase-1--44-systolic-pe-array-design-q88)
-  - [Architecture](#architecture)
-  - [Data Flow and Input Staggering](#data-flow-and-input-staggering)
-  - [Python Golden Reference Model](#python-golden-reference-model)
-  - [Verilog RTL Implementation](#verilog-rtl-implementation)
-  - [Simulation and Verification](#simulation-and-verification)
-  - [I/O Bottleneck and Output BRAM Optimization](#io-bottleneck-and-output-bram-optimization)
-  - [Timing and Power Analysis](#timing-and-power-analysis)
-- [Phase 2 — Multi-Precision Architecture Analysis](#phase-2--multi-precision-architecture-analysis)
-  - [Q12.4 — High Dynamic Range (16-bit)](#q124--high-dynamic-range-16-bit)
-  - [Q12.8 — Extended Precision (20-bit)](#q128--extended-precision-20-bit)
-  - [Q12.12 — Maximum Precision (24-bit)](#q1212--maximum-precision-24-bit)
-  - [Q12.12 Optimized — 2-Stage Pipelined MAC](#q1212-optimized--2-stage-pipelined-mac)
-  - [Consolidated Results Summary](#consolidated-results-summary)
-- [Phase 3 — Sobel Edge Detection on 640×640 KITTI Image](#phase-3--sobel-edge-detection-on-640640-kitti-image)
-  - [System Architecture](#system-architecture)
-  - [Tiling Strategy](#tiling-strategy)
-  - [BRAM-Based Data Pipeline](#bram-based-data-pipeline)
-  - [Output Results Across Precision Formats](#output-results-across-precision-formats)
-- [Repository Structure](#repository-structure)
-- [How to Simulate](#how-to-simulate)
-- [Dependencies](#dependencies)
-- [Results at a Glance](#results-at-a-glance)
-
----
-
 ## Project Overview
 
 This project implements a parameterized **4×4 Systolic Processing Element (PE) Array** in Verilog HDL for hardware-accelerated 2D convolution on FPGA. The work is structured in three progressive phases:
