@@ -193,7 +193,7 @@ The Verilog behavioral simulation was run in Xilinx Vivado. All 16 PEs compute i
 </p>
 
 <p align="center">
-  <img src="results/phase_1/Timing_report.png" width="400">
+  <img src="results/phase_1/waveform.png" width="600">
 </p>
 
 <p align="center">
