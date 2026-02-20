@@ -526,6 +526,13 @@ The systolic array was applied to the KITTI image with three precision formats. 
 | NumPy | Any | Matrix operations in reference model |
 | Pillow (PIL) | Any | Image loading/saving for KITTI pipeline |
 
+
+## Contributors
+- **[Madhan Lankalapalli](https://github.com/your-username)** 
+- **[Prasanth Behara](https://github.com/your-username)** 
+- **[Rupa Lakshmi Koram](https://github.com/your-username)** 
+
+
 <div align="center">
 
 **Designed and Implemented at RGUKT**  
